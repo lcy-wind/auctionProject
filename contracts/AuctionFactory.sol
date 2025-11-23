@@ -17,6 +17,11 @@ contract AuctionFactory is Initializable, UUPSUpgradeable, OwnableUpgradeable{
 
     address newAuctionProxyAddress;
 
+    // 手续费接受地址
+    address public priceFeedsAddress;
+    // 手续费比例
+    uint256 public priceFeesRate;
+
     function initialize(
         address _newAuctionProxyAddress
     ) public initializer {
@@ -74,6 +79,18 @@ contract AuctionFactory is Initializable, UUPSUpgradeable, OwnableUpgradeable{
         require(tokenId < auctions.length, "tokenId out of bounds");
         return auctions[tokenId];
     }
+
+    // 设置手续费接收地址和比例
+    function setPriceFeedsAddressAndPriceFeesRate(address _newPriceFeedsAddress, uint256 _newPriceFeesRate) external {
+        priceFeedsAddress = _newPriceFeedsAddress;
+        priceFeesRate =  _newPriceFeesRate;
+    }
+
+    // 计算手续费金额
+    function calculatePrice(uint256 price) external view returns (uint256) {
+        return price * (priceFeesRate / 100);
+    }
+
 
     function _authorizeUpgrade(
         address newImplementation

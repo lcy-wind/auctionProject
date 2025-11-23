@@ -2,20 +2,20 @@
   "manifestVersion": "3.2",
   "proxies": [
     {
-      "address": "0xED8291803440A091C7d698e6A8421DAe8f0A0d04",
-      "txHash": "0xb511580aca87cbbc713593b1d624a3b891978c9420bedb666e659a4d22b01e66",
+      "address": "0x27B96a8777940d847BAe305bfdd875BCeEe2F15D",
+      "txHash": "0xc71e946c99c07e9588bd27f502a58632297a507fc5bfc952264336b8cfeca844",
       "kind": "uups"
     },
     {
-      "address": "0xB1489273Db6d6dD3Aff75C0880348482F4d46529",
-      "txHash": "0xfc91fe625f0b0f0b1daf94d358bc4c458d46dab7f0dceb643e69be877afac12e",
+      "address": "0xF1A16796B856260d9b06BE03653F170D1c1C1337",
+      "txHash": "0xeb81cd040302c3a838c24333b393f4322f1db2ad8b644b4e732a51b936b62a47",
       "kind": "uups"
     }
   ],
   "impls": {
-    "af6a66abec0a16a6674feb96b993f38193e98e0dc60597ed2cbe3da893b43746": {
-      "address": "0xa2B1BCc9DDFe5BFBFf55564f212F68546c96F2b7",
-      "txHash": "0xddbb793e0bb1de41a900f0f59577ff59c119549e6aee47b055f327492996b277",
+    "adb48b3451fd0f035da502a7387625f3526ce040d17909b65ec7504c63aeb498": {
+      "address": "0xD4BEC2C0aD641913010b329247471951441C977f",
+      "txHash": "0x8b261da0f27b9a8063ef9687a0954869256573e64cfa0f997ad6f601581abba4",
       "layout": {
         "solcVersion": "0.8.28",
         "storage": [
@@ -230,9 +230,9 @@
         }
       }
     },
-    "826fda3cecc01170108215b8cdb1bc4e9c8e31cdbcad68de722c9f49e4d535dd": {
-      "address": "0x1113fCfBEc51E0ce1C2E1016a9A4d31eE1C14e80",
-      "txHash": "0x59bfe6165e85b6f3c0705011ee11026349c6244fed5f2092c26cdd4cc259ac9b",
+    "c07416f446ad9a3a896b5e0e032f0466f963e4e4c349d38e40d77101c561e512": {
+      "address": "0x474bd0D1cc2B1dc508e49221246f032B76Ef504c",
+      "txHash": "0xb5b83de81b83a96fe37d5c0b442320274a4173db77bd1bb4396fe67e2d45ec18",
       "layout": {
         "solcVersion": "0.8.28",
         "storage": [
@@ -447,9 +447,9 @@
         }
       }
     },
-    "16e08e406deb8a446c9db8a2122685d911d11530f5ac7e25c30aec4b2fb57444": {
-      "address": "0x9aa258668E2f9a82aEe5d4ca83FB88e4f996100D",
-      "txHash": "0xfb610d5be3fa9db99cd54a93fe23b65fd15d8a406fcd0e6c73ae09db0705a566",
+    "72829477cb7b6f4e4a28bca871413a388bff20916309160ab262f4a3eb36f1c1": {
+      "address": "0xb3479B283489e4715D80C32E59FEFC67f1B347Bc",
+      "txHash": "0x9ea853931a2f7b08192478f2985a090523d31f9eca1133c1f34b145c00109088",
       "layout": {
         "solcVersion": "0.8.28",
         "storage": [
@@ -465,7 +465,7 @@
             "label": "auctionMap",
             "offset": 0,
             "slot": "1",
-            "type": "t_mapping(t_uint256,t_contract(Auction)9255)",
+            "type": "t_mapping(t_uint256,t_contract(Auction)9315)",
             "contract": "AuctionFactory",
             "src": "contracts\\AuctionFactory.sol:14"
           },
@@ -476,6 +476,22 @@
             "type": "t_address",
             "contract": "AuctionFactory",
             "src": "contracts\\AuctionFactory.sol:18"
+          },
+          {
+            "label": "priceFeedsAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "AuctionFactory",
+            "src": "contracts\\AuctionFactory.sol:21"
+          },
+          {
+            "label": "priceFeesRate",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256",
+            "contract": "AuctionFactory",
+            "src": "contracts\\AuctionFactory.sol:23"
           }
         ],
         "types": {
@@ -525,11 +541,11 @@
             "label": "address[]",
             "numberOfBytes": "32"
           },
-          "t_contract(Auction)9255": {
+          "t_contract(Auction)9315": {
             "label": "contract Auction",
             "numberOfBytes": "20"
           },
-          "t_mapping(t_uint256,t_contract(Auction)9255)": {
+          "t_mapping(t_uint256,t_contract(Auction)9315)": {
             "label": "mapping(uint256 => contract Auction)",
             "numberOfBytes": "32"
           },

@@ -55,7 +55,7 @@ describe("Test NFT721 createAuction", function () {
     const nftTx = await myERC721.mint(deployer.address, "https://ipfs.io/ipfs/bafkreia6zbmkqbhdsk7hqdn4lf25uhqjuxw7bzqdze7ompmjopfg6jlmzm");
     await nftTx.wait();
     const newTokenId = (await myERC721.tokenCountId()) - 1n
-    await myERC721.approve(factory.getAddress(), newTokenId);
+    await myERC721.approve(await factory.getAddress(), newTokenId);
     console.log("new tokenId", newTokenId);
     console.log("new tokenId 属于 ", await myERC721.ownerOf(newTokenId));
 
@@ -92,8 +92,9 @@ describe("Test NFT721 createAuction", function () {
     console.log("出价后拍卖信息:", await auctionInstance.auctionMap(0));
     console.log("now in address ::", await myERC721.ownerOf(newTokenId))
     await sleep(15000);
+    await factory.setPriceFeedsAddressAndPriceFeesRate(factoryAddr, 600n);
     // 结束拍卖
-    await auctionInstance.endAuction(0n);
+    await auctionInstance.endAuction(0n,await factory.getAddress());
     // 查看721代币归属
     console.log("now in address ::", await myERC721.ownerOf(newTokenId))
 

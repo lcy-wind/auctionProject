@@ -5,10 +5,10 @@ function sleep(ms) {
 }
 
 // 全局变量初始化 
-let myERC721Addr = "0x1a505568C0116D48d8141f78262abE2ABd4cB7ca";
-let auctionV2Addr = "0xED8291803440A091C7d698e6A8421DAe8f0A0d04";
-let factoryAddr = "0xB1489273Db6d6dD3Aff75C0880348482F4d46529";
-let myERC20Addr = "0x15292bAea2b3e76578d93Ea09cC0CA11886eB95D";
+let myERC721Addr = "0x62c6c49CCd91b5f18c36F4FC8E6B1E399a177F3f";
+let auctionV2Addr = "0x27B96a8777940d847BAe305bfdd875BCeEe2F15D";
+let factoryAddr = "0xF1A16796B856260d9b06BE03653F170D1c1C1337";
+let myERC20Addr = "0x4f0e59F5c9f9d3217ea207ea4b3d116be9f51Ec5";
 let deployer, user1, user2;
 
 // ETH / USD  以太坊=》美元测试喂价地址
@@ -35,7 +35,10 @@ async function main() {
 
   const auctionFactoryContract = await ethers.getContractFactory("AuctionFactory");
   let factory = auctionFactoryContract.attach(factoryAddr);
-
+  await factory.setPriceFeedsAddressAndPriceFeesRate(factoryAddr, 10n);
+  await sleep(10000);
+  console.log("**** ", await factory.priceFeedsAddress());
+  console.log("**** ", await factory.priceFeesRate());
   await myERC721.mint(deployer.address, "https://ipfs.io/ipfs/bafkreia6zbmkqbhdsk7hqdn4lf25uhqjuxw7bzqdze7ompmjopfg6jlmzm");
 
   const newTokenId = (await myERC721.tokenCountId()) - 1n
@@ -121,7 +124,7 @@ async function main() {
     await sleep(200000);
 
     // 结束拍卖
-    await auctionInstance.endAuction(newAuctionId);
+    await auctionInstance.endAuction(newAuctionId, factoryAddr);
     await sleep(10000);
     // 查看721代币归属
     console.log("now in address ::", await myERC721.ownerOf(newTokenId))

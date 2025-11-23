@@ -218,7 +218,7 @@ contract Auction is Initializable, UUPSUpgradeable, OwnableUpgradeable, Reentran
     }
 
     // 结束拍卖
-    function endAuction(uint256 _auctionId) external onlyOwner nonReentrant {
+    function endAuction(uint256 _auctionId, address _factory) external onlyOwner nonReentrant {
         AuctionInfo storage auction = auctionMap[_auctionId];
         require(auction.maxBidder != address(0), "No bids placed for this auction");
         // 检查拍卖是否正在进行
@@ -236,15 +236,31 @@ contract Auction is Initializable, UUPSUpgradeable, OwnableUpgradeable, Reentran
             auction.maxBidder,
             auction.tokenId
         );
+        uint256 maxPrice = auction.maxPrice;
+        uint256 fee;
+        // 计算转移手续费到平台
+        if(_factory != address(0)){
+           (bool success, bytes memory data) = _factory.call(abi.encodeWithSignature("calculatePrice(uint256)", maxPrice));
+           require(success, "Failed to call calculatePrice");
+           fee = abi.decode(data, (uint256));
+            maxPrice = maxPrice - fee;
+        }
         // 转移金额到卖家
         if (auction.tokenAddress != address(0)) {
             IERC20(auction.tokenAddress).transfer(
                 auction.seller,
-                auction.maxPrice
+                maxPrice
+            );
+            IERC20(auction.tokenAddress).transfer(
+                auction.seller,
+                fee
             );
         } else {
-            payable(auction.seller).transfer(auction.maxPrice);
+            payable(auction.seller).transfer(maxPrice);
+            payable(_factory).transfer(fee);
         }
+
+
         emit endAuctionEvent(_auctionId, auction);
     }
 
